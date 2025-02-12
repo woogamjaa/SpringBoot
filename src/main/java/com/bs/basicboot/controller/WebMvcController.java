@@ -1,10 +1,13 @@
 package com.bs.basicboot.controller;
 
+import com.bs.basicboot.common.config.properties.MyDataProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@RequiredArgsConstructor
 @Controller
 @Slf4j
 public class WebMvcController {
@@ -25,6 +28,8 @@ public class WebMvcController {
     @Value("${os.javahome}")
     private String javahome;
 
+    public final MyDataProperties myDataProperties;
+
     @RequestMapping("/")
     public String index() {
         System.out.println("프로퍼티값 : "+myData);
@@ -32,6 +37,8 @@ public class WebMvcController {
         System.out.println("서버ip : "+id);
         System.out.println("자바홈  : "+javahome);
         System.out.println("환경경로 : "+envPath);
+        System.out.println("myip : "+myDataProperties.getIp());
+        System.out.println("myPort : "+myDataProperties.getPort());
 
         return "index";
     }

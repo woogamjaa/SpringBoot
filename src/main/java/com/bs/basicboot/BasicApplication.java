@@ -1,11 +1,14 @@
 package com.bs.basicboot;
 
+import com.bs.basicboot.common.config.properties.MyDataProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.util.Properties;
 
 @SpringBootApplication
+@EnableConfigurationProperties(MyDataProperties.class)
 public class BasicApplication {
 
     public static void main(String[] args) {

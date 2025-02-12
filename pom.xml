@@ -88,6 +88,12 @@
         </dependency>
 
 
+        <!--커스텀프로퍼티 작성하기 위한 의존성등록-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
