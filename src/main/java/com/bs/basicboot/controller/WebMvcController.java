@@ -17,9 +17,8 @@ public class WebMvcController {
     @Value("${linux.home}")
     private String path;
 
-
     @Value("${linux.url}")
-    private String id;
+    private String ip;
 
 
     @Value("${os.path}")
@@ -34,7 +33,7 @@ public class WebMvcController {
     public String index() {
         System.out.println("프로퍼티값 : "+myData);
         System.out.println("서버경로 : "+path);
-        System.out.println("서버ip : "+id);
+        System.out.println("서버ip : "+ip);
         System.out.println("자바홈  : "+javahome);
         System.out.println("환경경로 : "+envPath);
         System.out.println("myip : "+myDataProperties.getIp());
