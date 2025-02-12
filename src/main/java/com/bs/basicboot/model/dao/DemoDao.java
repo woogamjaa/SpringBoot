@@ -6,6 +6,5 @@ import org.apache.ibatis.session.SqlSession;
 import java.util.List;
 
 public interface DemoDao {
-
     List<Demo> findAll(SqlSession session);
 }

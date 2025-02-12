@@ -1,11 +1,16 @@
 package com.bs.basicboot.controller;
 
 import com.bs.basicboot.common.config.properties.MyDataProperties;
+import com.bs.basicboot.model.dto.Demo;
+import com.bs.basicboot.model.service.DemoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -38,7 +43,16 @@ public class WebMvcController {
         System.out.println("환경경로 : "+envPath);
         System.out.println("myip : "+myDataProperties.getIp());
         System.out.println("myPort : "+myDataProperties.getPort());
-
         return "index";
+    }
+
+    private final DemoService service;
+
+    @RequestMapping("/demo/demolist")
+    public String demolist(Model model) {
+        List<Demo> result=service.findAll();
+        model.addAttribute("demos",result);
+        log.info("demo조회결과 : {} ", result);
+        return "demo/demolist";
     }
 }
