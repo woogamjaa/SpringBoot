@@ -10,6 +10,6 @@ import java.util.List;
 public class DemoDaoImpl implements DemoDao {
     @Override
     public List<Demo> findAll(SqlSession session) {
-        return session.selectList("com.bs.basicboot.mapper.DemoMapper.findAll");
+        return session.selectList("demo.findAll");
     }
 }

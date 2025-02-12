@@ -8,7 +8,7 @@
 
     <h1>나의 첫 springboot화면.</h1>
     <h3>
-        <a hre="${pageContext.request.contextPath}/demo/demolist">
+        <a href="${pageContext.request.contextPath}/demo/demolist">
             DEMO
         </a>
     </h3>
