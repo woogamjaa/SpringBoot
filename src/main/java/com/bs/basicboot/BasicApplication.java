@@ -23,9 +23,6 @@ public class BasicApplication implements CommandLineRunner {
     @Autowired
     private WebApplicationContext context;
 
-
-
-
     public static void main(String[] args) {
         //부트 프로그램 시작하는 곳
         //시작할때 Properties를 설정해줄 수 있음.
