@@ -53,6 +53,6 @@ public class WebMvcController {
         List<Demo> result=service.findAll();
         model.addAttribute("demos",result);
         log.info("demo조회결과 : {} ", result);
-        return "demo/demolist";
+        return "demo/demoList";
     }
 }
