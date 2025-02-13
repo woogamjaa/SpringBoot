@@ -1,8 +1,10 @@
 package com.bs.basicboot;
 
+import com.bs.basicboot.common.config.MyaBanner;
 import com.bs.basicboot.common.config.properties.MyDataProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,6 +34,11 @@ public class BasicApplication implements CommandLineRunner {
         //SpringApplication클래스에서 제공하는 setDefaultProperties()메소드를 이용
         SpringApplication springApplication = new SpringApplication(BasicApplication.class);
         springApplication.setDefaultProperties(applicationProperties);
+        //Banner 설정하기.
+        springApplication.setBanner(new MyaBanner());
+        springApplication.setBannerMode(Banner.Mode.LOG);
+
+
 
         springApplication.run(args);
 

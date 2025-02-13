@@ -8,6 +8,6 @@ import java.io.PrintStream;
 public class MyaBanner implements Banner {
     @Override
     public void printBanner(Environment environment, Class<?> sourceClass, PrintStream out) {
-
+        System.out.println("ㅇㅅㅇ");
     }
 }
