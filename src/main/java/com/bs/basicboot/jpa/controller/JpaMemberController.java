@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/api/memver")
+@RequestMapping("/api/member")
 public class JpaMemberController {
     private final JpaMemberService service;
     private final Validator validator;
