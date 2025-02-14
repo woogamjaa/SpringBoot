@@ -55,7 +55,7 @@ public class JwtTokenUtils {
     }
 
     //토큰의 율효성을 확인하는 메소드
-    public boolean  validateToken(String token) {
+    public boolean  validToToken(String token) {
         try {
             Jwts.parser().verifyWith(key).build()
                     .parseSignedClaims(token);
