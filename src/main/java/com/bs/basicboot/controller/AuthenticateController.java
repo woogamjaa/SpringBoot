@@ -2,6 +2,7 @@ package com.bs.basicboot.controller;
 
 import com.bs.basicboot.jpa.model.dao.JpaMemberRepository;
 import com.bs.basicboot.jpa.model.dto.JpaMember;
+import com.bs.basicboot.jpa.model.service.JpaMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthenticateController {
 
-    private final JpaMemberRepository service;
+    private final JpaMemberService service;
 
     @PostMapping("/login.do")
     public ResponseEntity<Map> login(@RequestBody JpaMember m) {

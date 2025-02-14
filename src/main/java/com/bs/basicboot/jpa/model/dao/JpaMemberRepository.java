@@ -44,6 +44,5 @@ public interface JpaMemberRepository extends JpaRepository<JapMemberEntity,Long>
 
     @Query(value="select * FROM jap_MEMBER_ENTITY",nativeQuery = true)
     List<JapMemberEntity> selectNativeQuery();
-
-    String loginService(@NotEmpty @Size(min = 4, message = "4글자이상 입력하세요.") String userId, @Pattern(regexp = "(?=.*?[0-9])(?=.*?[a-zA-Z]).{5,}",message = "비밀번호 규칙에 위배됩니다. 숫자, 영문자 5글자로 설정") String password);
+//    String loginService(@NotEmpty @Size(min = 4, message = "4글자이상 입력하세요.") String userId, @Pattern(regexp = "(?=.*?[0-9])(?=.*?[a-zA-Z]).{5,}",message = "비밀번호 규칙에 위배됩니다. 숫자, 영문자 5글자로 설정") String password);
 }

@@ -9,8 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -21,6 +23,13 @@ public class SecurityConfig {
     private final DBConnectionProvider dbProvider;
     private final JwTokenFilter tokenFilter;
     @Bean
+    WebSecurityCustomizer configure() {
+        return (web)->{
+            web.ignoring()
+                    .requestMatchers(new AntPathRequestMatcher("/static/**"))
+                    .requestMatchers(new AntPathRequestMatcher("*.html"));
+        };
+    }
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(web->web.disable())
@@ -28,8 +37,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests( auth->
                     auth
                             .requestMatchers("/").permitAll()
-                            .requestMatchers("/WEB-INF/views/**").permitAll()
-                            .requestMatchers("/auth/login.go").permitAll()
+                            .requestMatchers("/static/index.html").permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/static/**")).permitAll()
+                            .requestMatchers("/auth/login.do").permitAll()
                             .anyRequest().authenticated()
                 )
 //                .formLogin(formlogin->formlogin
