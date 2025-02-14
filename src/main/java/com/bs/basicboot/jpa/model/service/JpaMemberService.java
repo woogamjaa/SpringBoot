@@ -9,10 +9,13 @@ import java.util.Map;
 public interface JpaMemberService {
     boolean addMember(JpaMember m);
     boolean updateMember(JpaMember m);
-    boolean deleteMember(JpaMember m);
+    boolean deleteMember(Long memberNo);
+
 
     List<JpaMember> getMembers();
     JpaMember getMemberById(String userId);
     List<JpaMember> searchMember(Map param);
+    JpaMember getMemberByNo(Long memberNo);
+
 
 }

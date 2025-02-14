@@ -5,6 +5,7 @@ import com.bs.basicboot.jpa.model.dto.JpaMember;
 import com.bs.basicboot.jpa.model.entity.JapMemberEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Map;
@@ -24,17 +25,31 @@ public class JpaMemberServiceImpl implements JpaMemberService {
 
     @Override
     public boolean updateMember(JpaMember m) {
-        return false;
+        try {
+            repository.save(JapMemberEntity.fromJpaMember(m));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean deleteMember(JpaMember m) {
-        return false;
+    public boolean deleteMember(Long memberNo) {
+        try{
+            repository.delete(repository.findById(memberNo).get());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override
     public List<JpaMember> getMembers() {
-        return List.of();
+        return repository.findAll().stream()
+                .map(entity->entity.toJpaMember()).toList();
     }
 
     @Override
@@ -46,4 +61,13 @@ public class JpaMemberServiceImpl implements JpaMemberService {
     public List<JpaMember> searchMember(Map param) {
         return List.of();
     }
+
+    @Override
+    public JpaMember getMemberByNo(Long memberNo) {
+        return repository.findById(memberNo).orElse(new JapMemberEntity()).toJpaMember();
+    }
+
+
+
+
 }
