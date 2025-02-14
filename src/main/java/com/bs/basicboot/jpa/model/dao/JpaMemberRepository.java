@@ -24,7 +24,7 @@ public interface JpaMemberRepository extends JpaRepository<JapMemberEntity,Long>
     List<JapMemberEntity> findByUserIdContainingAndAgeGreaterThan(String userId, Integer age);
 
     //생년월일이 이전인 회원을 조회
-    List<JapMemberEntity> findByBrithDayLessThan(LocalDate birthDay);
+    List<JapMemberEntity> findByBrithdayLessThan(LocalDate birthDay);
 
     //반환값을 Stream설정할 수 있음
     Stream<JapMemberEntity> findByUserNameLike(String userName);
