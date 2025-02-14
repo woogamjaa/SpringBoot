@@ -54,7 +54,7 @@ public class JpaMemberServiceImpl implements JpaMemberService {
 
     @Override
     public JpaMember getMemberById(String userId) {
-        return null;
+        return repository.findByUserId(userId).get().toJpaMember();
     }
 
     @Override
@@ -67,7 +67,8 @@ public class JpaMemberServiceImpl implements JpaMemberService {
         return repository.findById(memberNo).orElse(new JapMemberEntity()).toJpaMember();
     }
 
-
-
-
+    @Override
+    public List<JpaMember> getMemberByAge(Integer age) {
+        return repository.findByAgeGreaterThan(age).stream().map(entity->entity.toJpaMember()).toList();
+    }
 }

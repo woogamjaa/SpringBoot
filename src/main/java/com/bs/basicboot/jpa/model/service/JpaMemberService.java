@@ -16,6 +16,6 @@ public interface JpaMemberService {
     JpaMember getMemberById(String userId);
     List<JpaMember> searchMember(Map param);
     JpaMember getMemberByNo(Long memberNo);
-
+    List<JpaMember> getMemberByAge(Integer age);
 
 }

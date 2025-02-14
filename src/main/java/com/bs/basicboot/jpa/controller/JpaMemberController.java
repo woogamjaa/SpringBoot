@@ -90,4 +90,19 @@ public class JpaMemberController {
 //        }
 //    }
 
+    @GetMapping("/id")
+    public ResponseEntity serachUserId(String userId) {
+        return ResponseEntity.ok().body(service.getMemberById(userId));
+    }
+
+//    @GetMapping("/id")
+//    public ResponseEntity serachUserAge(String userId){
+//        return ResponseEntity.ok().body(service.getMemberById(userId));
+//    }
+
+    @GetMapping("/age")
+    public ResponseEntity searchAge(Integer age) {
+        return ResponseEntity.ok().body(service.getMemberByAge(age));
+    }
+
 }
