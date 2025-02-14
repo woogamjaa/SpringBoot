@@ -6,14 +6,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class JpaMember {
+public class JpaMember implements UserDetails {
     private Long memberNo;
     @NotEmpty
     @Size(min = 4, message = "4글자이상 입력하세요.")
@@ -29,4 +35,38 @@ public class JpaMember {
     @Positive
     @Min(value = 19, message = "성인만 가능")
     private Integer age;
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> auth=new ArrayList<>();
+        if (userId.equals("admin"))
+            auth.add(new SimpleGrantedAuthority("admin"));
+        auth.add(new SimpleGrantedAuthority("user"));
+        return auth;
+    }
+
+    @Override
+    public String getUsername() {
+        return userId;
+    }
 }

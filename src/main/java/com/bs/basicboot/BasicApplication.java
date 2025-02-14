@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -15,6 +16,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
@@ -22,10 +24,11 @@ import java.time.LocalDate;
 import java.util.Properties;
 import java.util.Set;
 
-
+@ServletComponentScan
 @SpringBootApplication
 @EnableConfigurationProperties(MyDataProperties.class)
 @Slf4j
+
 public class BasicApplication implements CommandLineRunner {
 
     @Autowired

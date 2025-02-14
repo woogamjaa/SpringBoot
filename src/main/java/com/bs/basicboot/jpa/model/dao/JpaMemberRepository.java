@@ -24,7 +24,7 @@ public interface JpaMemberRepository extends JpaRepository<JapMemberEntity,Long>
     List<JapMemberEntity> findByUserIdContainingAndAgeGreaterThan(String userId, Integer age);
 
     //생년월일이 이전인 회원을 조회
-    List<JapMemberEntity> findByBrithdayLessThan(LocalDate birthDay);
+    List<JapMemberEntity> findByBirthDayLessThan(LocalDate birthday);
 
     //반환값을 Stream설정할 수 있음
     Stream<JapMemberEntity> findByUserNameLike(String userName);
@@ -32,10 +32,10 @@ public interface JpaMemberRepository extends JpaRepository<JapMemberEntity,Long>
     List<JapMemberEntity> deleteByReservationDayBefore(LocalDate res);
 
     //직접 JPQL 구문 작성하기
-    @Query("SELECT M FROM JapMemberEntity m")
+    @Query("SELECT m FROM JapMemberEntity m")
     List<JapMemberEntity> selectAllMembers();
 
-    @Query("SELECT M FROM JapMemberEntity m where m.age >=:age and m.userId like:userId")
+    @Query("SELECT m FROM JapMemberEntity m where m.age >=:age and m.userId like :userId")
     List<JapMemberEntity> selectMemberByAgeAndUserId(Integer age, String userId);
 
 
