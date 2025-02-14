@@ -18,4 +18,5 @@ public interface JpaMemberService {
     JpaMember getMemberByNo(Long memberNo);
     List<JpaMember> getMemberByAge(Integer age);
 
+    String loginService(String UserId, String password);
 }

@@ -29,6 +29,7 @@ public class SecurityConfig {
                     auth
                             .requestMatchers("/").permitAll()
                             .requestMatchers("/WEB-INF/views/**").permitAll()
+                            .requestMatchers("/auth/login.go").permitAll()
                             .anyRequest().authenticated()
                 )
 //                .formLogin(formlogin->formlogin
