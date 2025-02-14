@@ -27,7 +27,7 @@ public class JpaMember implements UserDetails {
     @Pattern(regexp = "(?=.*?[0-9])(?=.*?[a-zA-Z]).{5,}",message = "비밀번호 규칙에 위배됩니다. 숫자, 영문자 5글자로 설정")
     private String password;
     @Size(min = 2, message = "2글자이상 입력하세요.")
-    private String userName;
+    private String name;
     @PastOrPresent(message = "과거나 오늘로 설정")
     private LocalDate birthDay;
     @Future(message = "오늘 후의 일자를 선택하세요")

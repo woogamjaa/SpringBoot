@@ -1,6 +1,9 @@
 package com.bs.basicboot.common.config;
 
 
+import com.bs.basicboot.common.config.event.MyAccessDenied;
+import com.bs.basicboot.security.model.service.DBConnectionProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,10 +13,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
-
+@RequiredArgsConstructor
 public class SecurityConfig {
     //시큐리티 설정은 시큐리티filter을 beab으로 등록
-
+    private final DBConnectionProvider dbProvider;
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -33,7 +36,9 @@ public class SecurityConfig {
 //                        .su
 //                )
                 //인즈처리하는 서비스를 등록 -> DB인증 절차 처리
-                .authenticationProvider()
+                .authenticationProvider(dbProvider)
+                //권한이 부족한 사용자가 서비스 접근했을때
+                .exceptionHandling(handle->handle.accessDeniedHandler(new MyAccessDenied()))
                 .build();
     }
 
