@@ -1,11 +1,41 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
     <title>Title</title>
 </head>
 <body>
+    <h2>일반문구출력하기</h2>
+    <p th:text="안녕하세요"></p>
+    <h2>model에 저장된 데이터 출력하기</h2>
+    <h4 th:text="${name}"></h4>
+    <ul>
+        <li th:text="${member.userId}"></li>
+        <li th:text="${member.password}"></li>
+        <li th:text="${member.name}"></li>
+        <li th:text="${member.age}"></li>
+    </ul>
+    <ul th:object="${member}">
+        <li th:text="*{userId}"></li>
+        <li th:text="*{password}"></li>
+        <li th:text="*{name}"></li>
+        <li th:text="*{age}"></li>
+    </ul>
 
-    <h1>나의 첫 springboot화면.</h1>
+    <h3 th:if="${member.age<40}">40대</h3>
+    <h3>지니어스</h3>
+    <ul th:each="t:${team}">
+        <li th:text="${t}"></li>
+    </ul>
+
+    <h3>요청 주소 설정하기</h3>
+    <a th:href="@{/test}">test로 요청</a>
+    <a th:href="@{/member/{id}(id=${member.userId})}">id로 조회</a>
+    <a th:href="@{/member(id=${member.userId})}">querystring으로 데이터 전송</a>
+
+
+    <h1>토큰인증 처리하기.</h1>
     <div>
         <input type="text" id="userId"><br>
         <input type="password" id="password"><br>

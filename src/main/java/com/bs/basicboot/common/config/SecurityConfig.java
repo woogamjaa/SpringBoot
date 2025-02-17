@@ -41,7 +41,9 @@ public class SecurityConfig {
                             .requestMatchers(req -> CorsUtils.isPreFlightRequest(req)).permitAll()
                             .requestMatchers("/").permitAll()
                             .requestMatchers("index.html").permitAll()
+                            .requestMatchers("/member/**").permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/static/**")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/templates/**")).permitAll()
                             //패치 내용 리퀘스트 허용
                             .requestMatchers("/auth/login.do").permitAll()
                             .anyRequest().authenticated()

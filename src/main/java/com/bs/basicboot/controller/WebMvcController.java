@@ -1,6 +1,7 @@
 package com.bs.basicboot.controller;
 
 import com.bs.basicboot.common.config.properties.MyDataProperties;
+import com.bs.basicboot.jpa.model.dto.JpaMember;
 import com.bs.basicboot.model.dto.Demo;
 import com.bs.basicboot.model.service.DemoService;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -46,6 +50,24 @@ public class WebMvcController {
         return "index.html";
     }
 
+    @GetMapping("/")
+    public String index(Model m) {
+        m.addAttribute("name", "bslove");
+        JpaMember member = JpaMember.builder()
+                .userId("test")
+                .password("test")
+                .name("테스트")
+                .age(44)
+                .birthDay(LocalDate.now())
+                .reservationDay(LocalDate.now())
+                .build();
+        m.addAttribute("member", member);
+        List<String> team=List.of("우감자","이민영","김통통","이예진","최광훈","정다인");
+        m.addAttribute("team", team);
+        return "index";
+    }
+
+
     private final DemoService service;
 
     @RequestMapping("/demo/demolist")
@@ -54,5 +76,10 @@ public class WebMvcController {
         model.addAttribute("demos",result);
         log.info("demo조회결과 : {} ", result);
         return "demo/demoList";
+    }
+
+    @GetMapping("/member/{id}")
+    public String member(@PathVariable String id) {
+        return "member/member";
     }
 }
