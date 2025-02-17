@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Title</title>
 </head>
 <body>
@@ -10,18 +11,130 @@
         <input type="password" id="password"><br>
         <button onclick="login()">로그인</button>
     </div>
+    <div>
+        <h3 onclick="searchMember();">회원조회</h3>
+    </div>
+    <div>번호로 조회하는 기능</div>
+    <div>회원등록기능 구현</div>
+
+
+
+
+    <div>
+
+        <input type="text" id="no" placeholder="회원번호">
+        <h3 onclick="selectNoMember();">번호조회</h3>
+    </div>
+
+    <div id="enroll-memeber">
+        <input type="text" name="userId">
+        <input type="password" name="password">
+        <input type="text" name="name">
+        <input type="text" name="age">
+        <input type="date" name="birthDay">
+        <input type="date" name="reservationDay">
+    </div>
+
+    <div>
+        <h3 onclick="insertMember();">회원등록</h3>
+    </div>
+
+
+    <input type="file" name="upFile"><button onclick="upload()">업로드</button>
 
 <script>
+    const upload=()=>{
+        const formData=new FormData();
+        formData.append("upFile",document.querySelector("input[type='file']").files[0]);
+        fetch("api/member/upload", {
+            headers:{"Authorization":sessionStorage.getItem("token")},
+            method:"POST",
+            body:formData
+        }).then(response=>console.log(response))
+    }
+
+
+    const insertMember=()=>{
+        const inputs=document.querySelectorAll("#enroll-memeber>input");
+            let memberdata={};
+        inputs.forEach(input=>{
+            memberdata[input.name]=input.value;
+        });
+        console.log(memberdata);
+        fetch("api/member",{
+            headers:{
+                "Authorization":sessionStorage.getItem("token"),
+                "Content-Type":"application/json"
+            },
+            method:"POST",
+            body:JSON.stringify(memberdata)
+        }) .then(response=>{
+            if (response.ok) alert("회원등록 성공.")
+            else alert("회원등록 실패.")
+        }) .then(data=>{
+            console.log(data);
+        })
+    }
+
+
+
+
+
+
+    const selectNoMember=()=>{
+        const no=document.querySelector("#no").value;
+        //얘는 서비스를 이용하기 위해서 인증받은 토큰을 가져가야함.
+        fetch(`/api/member/${no}`,{
+            headers:{  //
+                "Authorization":sessionStorage.getItem("token")
+            },method:"GET",
+        })
+            .then(response=>{
+                //switch(response.status){
+                // case 200:
+                // case 403:
+                // }
+                if (response.ok) return response.json();
+                else throw new Error (`${no} 회원을 찾을 수 없습니다.`)
+            }) .then(data=>{
+                console.log(data);
+        }).catch(e=>{
+            alert(e);
+        })
+    }
+
+
+
+
+
+
+
+    const searchMember=()=>{
+        fetch("/api/member",{
+            headers:{
+                "Authorization": sessionStorage.getItem("token")
+            }, method:"GET"
+        })
+            .then(response=>{
+                if(response.ok) return response.json();
+                else throw new Error("서비스이용실패");
+            }).then(data=>{
+                console.log(data);
+        }).catch(e=>{
+            alert(e);
+        })
+    }
+
     const login=()=>{
         const userId=document.querySelector("#userId").value;
         const password=document.querySelector("#password").value;
         fetch("http://localhost:9090/auth/login.do", {
             headers:{
-                "Content-Type":"application-json",
+                "Content-Type":"application/json",
             },method:"POST",
             body:JSON.stringify({userId:userId, password:password})
         }).then(response=>{
-            if(response.ok) return resopnse.json();
+            if(response.ok) return response.json();
             else throw new Error("로그인 실패");
         }).then(data=>{
             console.log(data);

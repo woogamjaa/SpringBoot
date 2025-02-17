@@ -9,8 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
 
 @RequiredArgsConstructor
@@ -104,5 +109,23 @@ public class JpaMemberController {
     public ResponseEntity searchAge(Integer age) {
         return ResponseEntity.ok().body(service.getMemberByAge(age));
     }
+
+    @PostMapping("/upload")
+    public ResponseEntity fileUpload(
+            //@RequestParam("")
+            MultipartFile upfile) {
+        System.out.println(upfile.getName());
+        System.out.println(upfile.getOriginalFilename());
+        System.out.println(upfile.getSize());
+
+//        try{
+//            upfile.transferTo(new File(path,upfile.getOriginalFilename()));
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+
+        return ResponseEntity.ok().build();
+    }
+
 
 }

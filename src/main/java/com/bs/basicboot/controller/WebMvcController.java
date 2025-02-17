@@ -43,7 +43,7 @@ public class WebMvcController {
         System.out.println("환경경로 : "+envPath);
         System.out.println("myip : "+myDataProperties.getIp());
         System.out.println("myPort : "+myDataProperties.getPort());
-        return "index";
+        return "index.html";
     }
 
     private final DemoService service;

@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -22,23 +23,26 @@ public class SecurityConfig {
     //시큐리티 설정은 시큐리티filter을 beab으로 등록
     private final DBConnectionProvider dbProvider;
     private final JwTokenFilter tokenFilter;
+//    @Bean
+//    WebSecurityCustomizer configure() {
+//        return (web)->{
+//            web.ignoring()
+//                    .requestMatchers(new AntPathRequestMatcher("/static/**"))
+//                    .requestMatchers(new AntPathRequestMatcher("*.html"));
+//        };
+//    }
     @Bean
-    WebSecurityCustomizer configure() {
-        return (web)->{
-            web.ignoring()
-                    .requestMatchers(new AntPathRequestMatcher("/static/**"))
-                    .requestMatchers(new AntPathRequestMatcher("*.html"));
-        };
-    }
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(web->web.disable())
                 //interceptor-url설정과 동일
                 .authorizeHttpRequests( auth->
                     auth
+                            .requestMatchers(req -> CorsUtils.isPreFlightRequest(req)).permitAll()
                             .requestMatchers("/").permitAll()
-                            .requestMatchers("/static/index.html").permitAll()
+                            .requestMatchers("index.html").permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/static/**")).permitAll()
+                            //패치 내용 리퀘스트 허용
                             .requestMatchers("/auth/login.do").permitAll()
                             .anyRequest().authenticated()
                 )

@@ -31,7 +31,7 @@ public class JwtTokenUtils {
     private JpaMemberRepository repository;
 
     public String generateToken(JpaMember m) {
-        return createToken(m,Duration.ofSeconds(5));
+        return createToken(m,Duration.ofDays(5));
     }
 
     //저장할 사용자 정보와 토큰유효기간을 외부에서 설정할 수 있게 매개변수로 처리
