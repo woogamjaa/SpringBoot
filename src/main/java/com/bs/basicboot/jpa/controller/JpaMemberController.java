@@ -3,6 +3,10 @@ package com.bs.basicboot.jpa.controller;
 
 import com.bs.basicboot.jpa.model.dto.JpaMember;
 import com.bs.basicboot.jpa.model.service.JpaMemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -44,9 +48,16 @@ public class JpaMemberController {
             return ResponseEntity.ok().body(members);
         }
     }
-
+    @Operation(summary = "회원 번호로 조회",
+            description = "전달된 번호와 일치하는 회원정보를 반환")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "번호와 일치하는 회원이 있음"),
+            @ApiResponse(responseCode = "404", description = "번호와 일치하는 회원이 없음")
+    })
     @GetMapping("/{no}")
-    public ResponseEntity getMemberByNo(@PathVariable("no") Long no) {
+    public ResponseEntity getMemberByNo(
+            @Parameter(required = true, description = "조회할 번호." , example = "1")
+            @PathVariable("no") Long no) {
         try{
             JpaMember findMember = service.getMemberByNo(no);
             return ResponseEntity.ok().body(service.getMemberByNo(no));
@@ -66,6 +77,7 @@ public class JpaMemberController {
     }
 
 //내코드
+
     @DeleteMapping("/{no}")
     public ResponseEntity deleteMember(@PathVariable("no") Long no) {
         boolean result=service.deleteMember(no);
